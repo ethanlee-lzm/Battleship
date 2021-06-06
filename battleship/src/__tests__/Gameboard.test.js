@@ -12,11 +12,11 @@ describe('Gameboard functions', () => {
 		}
 		expect(testBoard.board).toEqual(arr);
 	});
-    it('updates a cell when receiving a shot', () => {
+	it('updates a cell when receiving a shot', () => {
 		testBoard.receiveShot(25);
 		expect(testBoard.board[25].isShot).toBe(true);
 	});
-    it('responds to a miss', () => {
+	it('responds to a miss', () => {
 		expect(testBoard.receiveShot(25)).toBe(false);
 	});
 	it('confirms a hit', () => {
@@ -62,8 +62,8 @@ describe('Gameboard functions', () => {
 		arr[23] = 'hit';
 		arr[79] = 'miss';
 		testBoard.placeShip(22, 3, 'x');
-		testBoard.receiveShot(79);
 		testBoard.receiveShot(23);
+		testBoard.receiveShot(79);
 		expect(testBoard.opponentBoard()).toEqual(arr);
 	});
 });

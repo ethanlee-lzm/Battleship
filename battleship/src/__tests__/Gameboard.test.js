@@ -1,4 +1,4 @@
-import Gameboard from '../components/factories/gameboardFactory';
+import Gameboard from '../components/Factories/gameboardFactory';
 
 describe('Gameboard functions', () => {
 	let testBoard;

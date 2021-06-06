@@ -1,4 +1,4 @@
-import Player from '../components/factories/playerFactory';
+import Player from '../components/Factories/playerFactory';
 
 describe('player functions', () => {
 	// instantiate variable to avoid scoping issues

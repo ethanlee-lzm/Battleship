@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import wallpaper from '../../assets/images/starcraftWallpaper.jpg'
 
 const StyledApp = styled.div`
 	background: rgb(2, 0, 36);
@@ -9,6 +10,15 @@ const StyledApp = styled.div`
 		rgba(0, 0, 64, 1) 76%,
 		rgba(1, 0, 37, 1) 100%
 	);
+    background-image: url(${wallpaper});
+    background-size: cover;
+
+    background-position: center center;
+    text-align:center;
+    margin:auto;
+    padding:0;
+    background-repeat: no-repeat;
+
 	height: 100vh;
 `;
 

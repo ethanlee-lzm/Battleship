@@ -8,7 +8,7 @@ import createShip from '../factories/createShip';
 
 import { Container, Notification, FlexibleFormat } from '../style';
 
-const Game = ({ size, endGame }) => {
+const Game = ({ size, endGame, gameboard }) => {
   const initialPositions = [
     { x: 0, y: 0, len: 5, isHor: true },
     { x: 1, y: 2, len: 4, isHor: false },
@@ -18,7 +18,7 @@ const Game = ({ size, endGame }) => {
   ];
 
   const [gameboards, setGameboards] = useState({
-    human: createGameboard(size),
+    human: gameboard ?? createGameboard(size),
     robot: createGameboard(size),
   });
 
@@ -33,7 +33,6 @@ const Game = ({ size, endGame }) => {
 
   useEffect(() => {
     initialPositions.forEach(({ x, y, len, isHor }) => {
-      gameboards.human.place(x, y, createShip(len), isHor);
       gameboards.robot.place(x, y, createShip(len), isHor);
     });
     setGameboards({
@@ -91,7 +90,7 @@ const Game = ({ size, endGame }) => {
           title={robot.getName()}
           board={gameboards.robot.getBoard()}
           attacks={attacks.human}
-          areShipsHidden={true}
+          areShipsHidden={false}
           isInteractive={true}
           clickHandler={clickHandler}
         />

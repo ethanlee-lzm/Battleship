@@ -2,17 +2,39 @@ import React, { useState } from 'react';
 
 import Header from './Header';
 import Game from './Game';
+import Menu from './Menu';
 
 import { GlobalStyle } from '../style';
 import GameOver from './GameOver';
 
 const App = () => {
   const [gameState, setGameState] = useState({
-    start: false,
-    game: true,
+    start: true,
+    game: false,
     end: false,
+    gameboard: undefined,
     isHumanWinner: undefined,
   });
+
+  const startMenu = () => {
+    setGameState({
+      start: true,
+      game: false,
+      end: false,
+      gameboard: undefined,
+      isHumanWinner: undefined,
+    });
+  };
+
+  const startGame = (gameboard) => {
+    setGameState({
+      start: false,
+      game: true,
+      end: false,
+      gameboard,
+      isHumanWinner: undefined,
+    });
+  };
 
   const endGame = (isHumanWinner) => {
     setGameState({
@@ -23,24 +45,18 @@ const App = () => {
     });
   };
 
-  const startGame = () => {
-    setGameState({
-      start: false,
-      game: true,
-      end: false,
-      isHumanWinner: undefined,
-    });
-  };
-
   return (
     <React.Fragment>
       <GlobalStyle />
       <Header />
-      {gameState.game && <Game size={10} endGame={endGame} />}
+      {gameState.start && <Menu size={10} startGame={startGame} />}
+      {gameState.game && (
+        <Game size={10} endGame={endGame} gameboard={gameState.gameboard} />
+      )}
       {gameState.end && (
         <GameOver
           isHumanWinner={gameState.isHumanWinner}
-          startGame={startGame}
+          startGame={startMenu}
         />
       )}
     </React.Fragment>

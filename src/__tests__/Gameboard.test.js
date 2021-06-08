@@ -427,11 +427,11 @@ test('receiveAttack used on an empty cell updates the missedShots array', () => 
   gameboard.place(0, 0, ship, false);
 
   expect(gameboard.receiveAttack(0, 2)).toBe(false);
-  expect(gameboard.getMissedShots()).toEqual([{ x: 0, y: 2 }]);
+  expect(gameboard.getAttacks()).toEqual([{ isSuccess: false, x: 0, y: 2 }]);
   expect(gameboard.receiveAttack(4, 8)).toBe(false);
-  expect(gameboard.getMissedShots()).toEqual([
-    { x: 0, y: 2 },
-    { x: 4, y: 8 },
+  expect(gameboard.getAttacks()).toEqual([
+    { isSuccess: false, x: 0, y: 2 },
+    { isSuccess: false, x: 4, y: 8 },
   ]);
 });
 

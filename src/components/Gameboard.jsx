@@ -1,35 +1,66 @@
 import React from 'react';
 
-import { Board, Row, Cell, Heading } from '../style';
+import { BoardContainer, Heading, Board, Cell } from '../style';
 
 const Gameboard = ({
   title,
-  gameboard,
-  isPlaceable = true,
+  board,
+  attacks,
+  clickHandler,
+  isLabelled = false,
   isInteractive = false,
+  areShipsHidden = false,
 }) => {
-  const headerRow = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-  const board = gameboard.getBoard();
+  const labels = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+
+  const getAttack = (x, y) => {
+    return attacks.find((attack) => attack.x === x && attack.y === y);
+  };
+
+  const getIcon = (x, y) => {
+    const attack = getAttack(x, y);
+    if (!attack) return;
+    return attack.isSuccess ? 'X' : 'O';
+  };
 
   return (
-    <Board>
+    <BoardContainer>
       <Heading>{title}</Heading>
-      {isPlaceable && (
-        <Row>
-          {headerRow.map((cell, i) => (
-            <Cell key={i}>{cell}</Cell>
+      <Board>
+        <tbody>
+          {isLabelled && (
+            <tr>
+              {labels.map((label, i) => (
+                <Cell key={i} isLabel>
+                  {label}
+                </Cell>
+              ))}
+            </tr>
+          )}
+          {board.map((row, j) => (
+            <tr key={j}>
+              {isLabelled && (
+                <Cell key={j} isLabel>
+                  {j}
+                </Cell>
+              )}
+              {row.map((cell, i) => (
+                <Cell
+                  key={i}
+                  isActive={cell && !areShipsHidden}
+                  isInteractive={isInteractive && !getAttack(i, j)}
+                  onClick={() => {
+                    if (isInteractive && !getAttack(i, j)) clickHandler(i, j);
+                  }}
+                >
+                  {getIcon(i, j)}
+                </Cell>
+              ))}
+            </tr>
           ))}
-        </Row>
-      )}
-      {board.map((row, index) => (
-        <Row key={index}>
-          {isPlaceable && <Cell key={index}>{index}</Cell>}
-          {row.map((_, i) => (
-            <Cell isHoverable={isInteractive} hasBorder key={i} />
-          ))}
-        </Row>
-      ))}
-    </Board>
+        </tbody>
+      </Board>
+    </BoardContainer>
   );
 };
 

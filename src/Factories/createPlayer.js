@@ -7,7 +7,7 @@ const createPlayer = (gameboard, player = 'Player', isRobot = false) => {
 	// ensure gameboard object contains the listed properties
 	const {
 	  getBoard,
-	  getMissedShots,
+	  getAttacks,
 	  place,
 	  receiveAttack,
 	  allShipsSunk,
@@ -16,12 +16,12 @@ const createPlayer = (gameboard, player = 'Player', isRobot = false) => {
 	// check properties are defined and are functions
 	if (
 	  getBoard === undefined ||
-	  getMissedShots === undefined ||
+	  getAttacks === undefined ||
 	  place === undefined ||
 	  receiveAttack === undefined ||
 	  allShipsSunk === undefined ||
 	  typeof getBoard !== 'function' ||
-	  typeof getMissedShots !== 'function' ||
+	  typeof getAttacks !== 'function' ||
 	  typeof place !== 'function' ||
 	  typeof receiveAttack !== 'function' ||
 	  typeof allShipsSunk !== 'function'
@@ -59,6 +59,7 @@ const createPlayer = (gameboard, player = 'Player', isRobot = false) => {
 	  getName: () => player,
 	  getType: () => (isRobot ? 'Robot' : 'Human'),
 	  getCells: () => cells,
+	  getBoard: () => gameboard.getBoard(),
 	  takeTurn: isRobot ? randomMove : makeMove,
 	};
   };

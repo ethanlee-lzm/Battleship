@@ -43,16 +43,13 @@ export const Logo = styled.img`
   filter: invert(35%) sepia(63%) saturate(643%) hue-rotate(168deg) 
   brightness(94%) contrast(89%);
   transform: scaleX(-1);
-  padding: 0.25em;
-  width: 200px;
-  margin-right: 2.5em;
   position: absolute;
   top: -75%;
-  margin-left: -116px;
+  margin-left: -114px;
 
   @media (min-width: 700px) {
     top: -58%;
-    margin-left: -155px;
+    margin-left: -151px;
   }
 `;
 
@@ -78,6 +75,20 @@ export const Notification = styled.div`
   }
 `;
 
+export const BoardContainer = styled.div`
+  margin: 0.5em 1.25em;
+
+  @media (min-width: 700px) {
+    margin: 1em;
+  }
+`;
+
+export const Board = styled.table`
+  table-layout: fixed;
+  width: 250px;
+  height: 250px;
+`;
+
 export const Heading = styled.h1`
   color: var(--primary-color);
   font-size: 1em;
@@ -89,43 +100,36 @@ export const Heading = styled.h1`
   }
 `;
 
-export const Cell = styled.span`
-  display: block;
+export const Cell = styled.td`
   width: 25px;
   height: 25px;
-  color: white;
-  outline: ${(props) => (props.hasBorder ? '2px' : 0)} solid white;
+  color: ${(props) => (props.isActive ? 'black' : 'white')};
+  border: 2px solid rgba(255, 255, 255, 0);
   background-color: ${(props) =>
-    props.isActive ? '#229D71' : props.hasBorder ? '#333' : ''};
-  font-size: 1.5em;
+    props.isActive ? 'var(--primary-color)' : !props.isLabel ? '#333' : ''};
+  font-size: 15px;
   text-align: center;
-  line-height: 40px;
-  transition: transform 0.2s ease-in;
-  text-shadow: 3px 3px black;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
+  transition: border 0.2s ease-in;
+  user-select: none;
+  text-shadow: ${(props) => (props.isLabel ? '3px 3px black' : '')};
+  cursor: ${(props) => (props.isInteractive ? 'pointer' : 'auto')};
 
   :hover {
-    transform: scale(${(props) => (props.isHoverable ? 1.1 : undefined)});
+    border: 2px solid
+      rgba(255, 255, 255, ${(props) => (props.isInteractive ? 1 : 0)});
   }
 
   @media (min-width: 700px) {
     width: 30px;
     height: 30px;
+    line-height: 25px;
   }
 `;
 
-export const Board = styled.div`
-  margin: 0.5em;
-
-  @media (min-width: 700px) {
-    margin: 1em;
-  }
-`;
-
-export const Row = styled.div`
-  display: flex;
-`;
-
-export const FlexFormat = styled.div`
+export const FlexibleFormat = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

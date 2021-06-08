@@ -4,10 +4,10 @@ const createGameboard = (size) => {
 	);
   
 	const ships = [];
-	const missedShots = [];
+	const attacks = [];
   
 	const getBoard = () => gameboard;
-	const getMissedShots = () => missedShots;
+	const getAttacks = () => attacks;
   
 	const place = (x, y, ship, isHorizontal = true) => {
 	  if ([x, y, ship].includes(undefined)) {
@@ -102,15 +102,16 @@ const createGameboard = (size) => {
   
 	  if (typeof ship === 'object') {
 		ship.hit(getShipPosition(x, y, ship));
+		attacks.push({ x, y, isSuccess: true });
 		return true;
 	  }
-	  missedShots.push({ x, y });
+	  attacks.push({ x, y, isSuccess: false });
 	  return false;
 	};
   
 	const allShipsSunk = () => ships.every((ship) => ship.isSunk());
   
-	return { getBoard, getMissedShots, place, receiveAttack, allShipsSunk };
+	return { getBoard, getAttacks, place, receiveAttack, allShipsSunk };
   };
   
   export default createGameboard;

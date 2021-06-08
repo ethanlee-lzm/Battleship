@@ -9,14 +9,6 @@ import createShip from '../factories/createShip';
 import { Container, Notification, FlexibleFormat } from '../style';
 
 const Game = ({ size, endGame, gameboard }) => {
-  const initialPositions = [
-    { x: 0, y: 0, len: 5, isHor: true },
-    { x: 1, y: 2, len: 4, isHor: false },
-    { x: 9, y: 9, len: 3, isHor: true },
-    { x: 5, y: 5, len: 3, isHor: true },
-    { x: 0, y: 9, len: 2, isHor: false },
-  ];
-
   const [gameboards, setGameboards] = useState({
     human: gameboard ?? createGameboard(size),
     robot: createGameboard(size),
@@ -32,9 +24,19 @@ const Game = ({ size, endGame, gameboard }) => {
   const [attacks, setAttacks] = useState({ human: [], robot: [] });
 
   useEffect(() => {
-    initialPositions.forEach(({ x, y, len, isHor }) => {
-      gameboards.robot.place(x, y, createShip(len), isHor);
+    [5, 4, 3, 3, 2].forEach((length) => {
+      let hasPlaced = false;
+      while (!hasPlaced) {
+        try {
+          const x = Math.floor(Math.random() * 10);
+          const y = Math.floor(Math.random() * 10);
+          const isHor = Math.random() > 0.5;
+          gameboards.robot.place(x, y, createShip(length), isHor);
+          hasPlaced = true;
+        } catch (e) {}
+      }
     });
+
     setGameboards({
       human: gameboards.human,
       robot: gameboards.robot,

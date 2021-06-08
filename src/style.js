@@ -56,22 +56,26 @@ export const Logo = styled.img`
 export const Container = styled.section`
   background-color: #222;
   border-radius: 10px;
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   overflow: hidden;
   padding: 0 0.5em 0.5em 0.5em;
   width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Notification = styled.div`
   background-color: var(--primary-color);
-  padding: 0.5em 0.25em;
-  margin: 0 -0.5em;
+  padding: 0.5em;
   position: relative;
   text-align: center;
+  width: 110%;
 
   @media (min-width: 700px) {
-    padding: 1em 0;
+    padding: 0.75em;
   }
 `;
 
@@ -137,4 +141,42 @@ export const FlexibleFormat = styled.div`
   @media (min-width: 700px) {
     flex-direction: row;
   }
+`;
+
+export const BlurBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.075);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Button = styled.button`
+  background-color: var(--primary-color);
+  color: black;
+  border-radius: 3px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  margin: ${(props) => props.margin};
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease-out;
+
+  :focus {
+    outline: none;
+  }
+
+  :hover {
+    filter: brightness(120%);
+  }
+`;
+
+export const Text = styled.p`
+  color: white;
+  margin: 1em;
 `;

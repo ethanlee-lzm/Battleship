@@ -5,7 +5,7 @@ import { BoardContainer, Heading, Board, Cell } from '../style';
 const Gameboard = ({
   title,
   board,
-  attacks,
+  receivedAttacks,
   clickHandler,
   isLabelled = false,
   isInteractive = false,
@@ -14,7 +14,7 @@ const Gameboard = ({
   const labels = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
   const getAttack = (x, y) => {
-    return attacks?.find((attack) => attack.x === x && attack.y === y);
+    return receivedAttacks?.find((attack) => attack.x === x && attack.y === y);
   };
 
   const getIcon = (x, y) => {

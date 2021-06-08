@@ -20,18 +20,19 @@ const Menu = ({ size, startGame }) => {
   };
 
   const handleClick = (x, y) => {
-    gameboard.place(x, y, createShip(ships[0]), isHorizontal);
-    setGameboard(gameboard);
-    setShips(ships.slice(1));
-    if (ships.length === 1) start();
+    try {
+      gameboard.place(x, y, createShip(ships[0]), isHorizontal);
+      setGameboard(gameboard);
+      setShips(ships.slice(1));
+      if (ships.length === 1) start();
+    } catch (e) {
+      console.log('Ship already placed here.');
+    }
   };
 
   return (
     <Container>
       <Notification>Set up your Game Board!</Notification>
-      <Button margin="1em 0 0 0" onClick={swapAxis}>
-        {isHorizontal ? 'Horizontal' : 'Vertical'}
-      </Button>
       <Gameboard
         size={size}
         board={gameboard.getBoard()}
@@ -40,6 +41,9 @@ const Menu = ({ size, startGame }) => {
         clickHandler={handleClick}
         areShipsHidden={false}
       />
+      <Button margin="0 0 0.5em 0" onClick={swapAxis}>
+        {isHorizontal ? 'Vertical' : 'Horizontal'}
+      </Button>
     </Container>
   );
 };

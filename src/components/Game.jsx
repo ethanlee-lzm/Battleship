@@ -43,13 +43,13 @@ const Game = ({ size, endGame, gameboard }) => {
   }, []);
 
   const checkGameOver = () => {
-    if (gameboards.human.allShipsSunk()) endGame(true);
-    if (gameboards.robot.allShipsSunk()) endGame(false);
+    if (gameboards.human.allShipsSunk()) endGame(false);
+    if (gameboards.robot.allShipsSunk()) endGame(true);
   };
 
   const robotMove = () => {
     setTimeout(() => {
-      robot.takeTurn();
+      human.takeAttack();
       setAttacks({
         human: gameboards.human.getAttacks(),
         robot: gameboards.robot.getAttacks(),
@@ -60,10 +60,10 @@ const Game = ({ size, endGame, gameboard }) => {
 
   const clickHandler = (i, j) => {
     if (!isHumanTurn) return;
-    human.takeTurn(i, j);
+    robot.takeAttack(i, j);
     setAttacks({
-      ...attacks,
       human: gameboards.human.getAttacks(),
+      robot: gameboards.robot.getAttacks(),
     });
     setIsHumanTurn(false);
     robotMove();
@@ -82,15 +82,15 @@ const Game = ({ size, endGame, gameboard }) => {
           size={size}
           title={human.getName()}
           board={gameboards.human.getBoard()}
-          attacks={attacks.robot}
+          receivedAttacks={attacks.human}
           clickHandler={clickHandler}
         />
         <Gameboard
           size={size}
           title={robot.getName()}
           board={gameboards.robot.getBoard()}
-          attacks={attacks.human}
-          areShipsHidden={false}
+          receivedAttacks={attacks.robot}
+          areShipsHidden={true}
           isInteractive={true}
           clickHandler={clickHandler}
         />

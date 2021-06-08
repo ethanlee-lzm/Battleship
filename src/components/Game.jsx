@@ -8,7 +8,7 @@ import createShip from '../factories/createShip';
 
 import { Container, Notification, FlexibleFormat } from '../style';
 
-const Game = ({ size }) => {
+const Game = ({ size, endGame }) => {
   const initialPositions = [
     { x: 0, y: 0, len: 5, isHor: true },
     { x: 1, y: 2, len: 4, isHor: false },
@@ -43,6 +43,11 @@ const Game = ({ size }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const checkGameOver = () => {
+    if (gameboards.human.allShipsSunk()) endGame(true);
+    if (gameboards.robot.allShipsSunk()) endGame(false);
+  };
+
   const robotMove = () => {
     setTimeout(() => {
       robot.takeTurn();
@@ -63,6 +68,7 @@ const Game = ({ size }) => {
     });
     setIsHumanTurn(false);
     robotMove();
+    checkGameOver();
   };
 
   return (

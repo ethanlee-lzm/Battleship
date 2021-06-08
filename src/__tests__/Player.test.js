@@ -82,75 +82,75 @@ test('Throw error if isRobot is not a boolean', () => {
   );
 });
 
-const { takeTurn } = createPlayer(gameboard);
+const { takeAttack } = createPlayer(gameboard, 'Robot', true);
 
-test('Throw error if takeTurn x coordinate is not an integer between 0-9', () => {
-  expect(() => takeTurn()).toThrow('Arguments x & y are required');
-  expect(() => takeTurn(null, 0)).toThrow(
+test('Throw error if takeAttack x coordinate is not an integer between 0-9', () => {
+  expect(() => takeAttack()).toThrow('Arguments x & y are required');
+  expect(() => takeAttack(null, 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(true, 0)).toThrow(
+  expect(() => takeAttack(true, 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn('', 0)).toThrow(
+  expect(() => takeAttack('', 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn([], 0)).toThrow(
+  expect(() => takeAttack([], 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn({}, 0)).toThrow(
+  expect(() => takeAttack({}, 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(() => {}, 0)).toThrow(
+  expect(() => takeAttack(() => {}, 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(-10, 0)).toThrow(
+  expect(() => takeAttack(-10, 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(0.5, 0)).toThrow(
+  expect(() => takeAttack(0.5, 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
 
-  expect(() => takeTurn(100, 0)).toThrow(
+  expect(() => takeAttack(100, 0)).toThrow(
     'x coordinate must be an integer between 0-9',
   );
 });
 
-test('Throw error if takeTurn y coordinate is not an integer between 0-9', () => {
-  expect(() => takeTurn(0)).toThrow('Arguments x & y are required');
-  expect(() => takeTurn(0, true)).toThrow(
+test('Throw error if takeAttack y coordinate is not an integer between 0-9', () => {
+  expect(() => takeAttack(0)).toThrow('Arguments x & y are required');
+  expect(() => takeAttack(0, true)).toThrow(
     'y coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(0, '')).toThrow(
+  expect(() => takeAttack(0, '')).toThrow(
     'y coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(0, [])).toThrow(
+  expect(() => takeAttack(0, [])).toThrow(
     'y coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(0, {})).toThrow(
+  expect(() => takeAttack(0, {})).toThrow(
     'y coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(0, () => {})).toThrow(
+  expect(() => takeAttack(0, () => {})).toThrow(
     'y coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(0, -10)).toThrow(
+  expect(() => takeAttack(0, -10)).toThrow(
     'y coordinate must be an integer between 0-9',
   );
-  expect(() => takeTurn(0, 0.5)).toThrow(
+  expect(() => takeAttack(0, 0.5)).toThrow(
     'y coordinate must be an integer between 0-9',
   );
 
-  expect(() => takeTurn(0, 100)).toThrow(
+  expect(() => takeAttack(0, 100)).toThrow(
     'y coordinate must be an integer between 0-9',
   );
 });
 
-test('Non-robot takeTurn returns a boolean depending on if a ship is hit or not', () => {
+test('Human attacking a robot returns a boolean depending on if a ship is hit or not', () => {
   const gameboard = createGameboard(10);
   gameboard.place(0, 0, createShip(4), true);
-  const player = createPlayer(gameboard);
-  expect(player.takeTurn(9, 9)).toBe(false);
-  expect(player.takeTurn(0, 0)).toBe(true);
+  const player = createPlayer(gameboard, 'robot', true);
+  expect(player.takeAttack(9, 9)).toBe(false);
+  expect(player.takeAttack(0, 0)).toBe(true);
 
   const testCells = [];
   for (let x = 0; x < 10; x++) {

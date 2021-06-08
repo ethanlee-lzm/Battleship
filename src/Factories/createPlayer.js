@@ -44,15 +44,15 @@ const createPlayer = (gameboard, player = 'Player', isRobot = false) => {
 	  }),
 	);
   
-	const makeMove = (x, y) => {
+	const fixedAttack = (x, y) => {
 	  const isSuccess = receiveAttack(x, y);
 	  cells = cells.filter((cell) => !(cell.x === x && cell.y === y));
 	  return isSuccess;
 	};
   
-	const randomMove = () => {
+	const randomAttack = () => {
 	  const { x, y } = cells[Math.floor(Math.random() * cells.length)];
-	  return makeMove(x, y);
+	  return fixedAttack(x, y);
 	};
   
 	return {
@@ -60,7 +60,7 @@ const createPlayer = (gameboard, player = 'Player', isRobot = false) => {
 	  getType: () => (isRobot ? 'Robot' : 'Human'),
 	  getCells: () => cells,
 	  getBoard: () => gameboard.getBoard(),
-	  takeTurn: isRobot ? randomMove : makeMove,
+	  takeAttack: isRobot ? fixedAttack : randomAttack,
 	};
   };
   

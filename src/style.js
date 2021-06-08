@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   body {
     background-color: #111;
+    overflow: hidden;
   }
   :root {
     --primary-color: #286bad;
@@ -162,7 +163,7 @@ export const Button = styled.button`
   border-radius: 3px;
   padding: 0.5em 1em;
   font-size: 1em;
-  margin: ${(props) => props.margin};
+  margin: ${({ margin }) => margin};
   border: none;
   cursor: pointer;
   transition: filter 0.2s ease-out;
@@ -179,4 +180,68 @@ export const Button = styled.button`
 export const Text = styled.p`
   color: white;
   margin: 1em;
+`;
+
+export const TooltipContainer = styled.span`
+  position: absolute;
+  background-color: #222;
+  width: 190px;
+  border-radius: 20px;
+  padding: 0.25em 1em;
+  border: 1px solid var(--primary-color);
+  border-bottom-left-radius: 0px;
+  color: white;
+`;
+
+export const FooterComponent = styled.div`
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 0.5rem;
+	font-family: 'Big Shoulders Text', cursive;
+	background: rgb(126, 126, 126);
+	background: linear-gradient(
+		90deg,
+		rgba(126, 126, 126, 1) 0%,
+		rgba(205, 205, 203, 1) 29%,
+		rgba(181, 181, 181, 1) 76%,
+		rgba(122, 122, 122, 1) 100%
+	);
+	height: 3rem;
+	justify-content: center;
+	text-align: center;
+	& > :first-child {
+		margin-left: auto;
+		padding-right: 1rem;
+	}
+	& > :last-child {
+		margin-right: auto;
+		padding-left: 1rem;
+	}
+`;
+
+export const FooterText = styled.p`
+	color: #000129;
+	margin: auto 0;
+	& > a {
+		transition: 0.5s;
+	}
+	& > a:link,
+	& > a:active,
+	& > a:visited {
+		color: #000129;
+	}
+	& > a:hover {
+		color: #333;
+		transition: 0.5s;
+	}
+`;
+
+export const FooterLinksDiv = styled.div`
+	display: flex;
+	& > * {
+		margin: auto;
+	}
 `;

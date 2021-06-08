@@ -6,6 +6,7 @@ import Menu from './Menu';
 
 import { GlobalStyle } from '../style';
 import GameOver from './GameOver';
+import Footer from './Footer';
 
 const App = () => {
   const [gameState, setGameState] = useState({
@@ -59,6 +60,7 @@ const App = () => {
           startGame={startMenu}
         />
       )}
+      <Footer />
     </React.Fragment>
   );
 };
